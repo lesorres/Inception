@@ -1,0 +1,77 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Dockerfile                                         :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: kmeeseek <kmeeseek@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/10/13 22:11:50 by kmeeseek          #+#    #+#              #
+#    Updated: 2021/10/20 23:03:29 by kmeeseek         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+FROM debian:buster
+
+# updating packages
+# **************************************************************************** #
+# apt is for the terminal and gives beautiful output while apt-get             #
+# and apt-cache are for scripts and give stable, parsable output               #
+# https://askubuntu.com/questions/990823/apt-gives-unstable-cli-interface-warni#
+# ng                                                                           #
+# **************************************************************************** #
+RUN apt-get update
+
+# software installation
+# **************************************************************************** #
+# Nginx умеет работать с FastCGI приложениями из коробки, но именно для PHP    #
+# дополнительно нужен PHP-FPM.                                                 #
+# http://xandeadx.ru/blog/php/866                                              #
+# Install the php-fpm module along with an additional helper package,          #
+# php-mysql, which will allow PHP to communicate with your database backend.   #
+# The installation will pull in the necessary PHP core files.                  #
+# https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-m#
+# ysql-php-lemp-stack-ubuntu-18-04                                             #
+# **************************************************************************** #
+RUN apt-get install -y php7.3-fpm php7.3-mysql php7.3-cgi curl
+
+# wp-cli installation
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+# **************************************************************************** #
+# To use WP-CLI from the command line by typing wp, make the file executable   #
+# and move it to somewhere in your PATH.                                       #
+# https://wp-cli.org/                                                          #
+# **************************************************************************** #
+RUN chmod +x wp-cli.phar
+# RUN sudo mv wp-cli.phar /usr/local/bin/wp
+RUN mv wp-cli.phar /usr/local/bin/wp
+
+RUN sed -i -e 's/listen = \/run\/php\/php7.3-fpm.sock/listen = wordpress:9000/g' /etc/php/7.3/fpm/pool.d/www.conf
+
+# wordpress installation
+WORKDIR /var/www/wordpress
+# **************************************************************************** #
+# wp core download - Downloads and extracts WordPress core files               #
+# to the specified path.                                                       #
+# https://developer.wordpress.org/cli/commands/core/download/                  #
+# **************************************************************************** #
+RUN wp core download --path=/var/www/wordpress --allow-root
+RUN chown -R www-data:www-data *
+RUN chmod -R 755 /var/www/*
+# **************************************************************************** #
+# wp config create - Creates a new wp-config.php with database constants,      #
+# and verifies that the database constants are correct.                        #
+# https://developer.wordpress.org/cli/commands/config/create/                  #
+# **************************************************************************** #
+# RUN wp config create --allow-root --dbname=DB --dbuser=kmeeseek \
+# 	--dbpass=876543 --dbhost=mariadb --path=/var/www/wordpress
+# ADD conf/wp-config.php var/www/wordpress/wp-config.php
+# core config
+RUN service php7.3-fpm start; service php7.3-fpm stop
+# CMD service php7.3-fpm start; wp config create --allow-root --dbname=DB --dbuser=kmeeseek \
+# 	--dbpass=876543 --dbhost=mariadb --dbprefix=wp_ --path=/var/www/wordpress \
+# 	; wp core install --allow-root --url=kmeeseek.42.fr --title="litle girl" \
+# 		--admin_user=kmeeseek --admin_password=kmeeseek --admin_email="kmeeseek@student.21-school.ru" \
+# 		--path=/var/www/wordpress ; /usr/sbin/php-fpm7.3 -F --nodaemonize
+
+CMD /usr/sbin/php-fpm7.3 -F --nodaemonize
+	# /usr/sbin/php-fpm7.3 -F --nodaemonize && /

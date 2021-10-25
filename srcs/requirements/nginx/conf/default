@@ -1,0 +1,45 @@
+server
+{
+	listen 443 ssl;
+	listen [::]:443 ssl;
+	server_name kmeeseek.42.fr;
+
+	ssl on;
+	ssl_certificate /etc/ssl/nginx-selfsigned.crt;
+	ssl_certificate_key /etc/ssl/nginx-selfsigned.key;
+
+	root /var/www/wordpress;
+	autoindex off;
+	index index.html index.php;
+
+	location /
+	{
+		try_files $uri $uri/ =404;
+	}
+# Подлючение FastCGI
+	location ~ \.php$
+	{
+		include snippets/fastcgi-php.conf;
+		fastcgi_pass wordpress:9000;
+	}
+}
+
+# **************************************************************************** #
+# try_files $uri =404; is one of a number of common tricks to overcome         #
+# a particular script injection exploit by ensuring the PHP file is            #
+# a real file before sending the URL to the upstream interpreter.              #
+# https://serverfault.com/questions/739170/what-does-try-files-do-in-this-nginx#
+# -configuration/739174                                                        #
+# **************************************************************************** #
+# When you send a web request, your request goes to the proxy server first.    #
+# The proxy server then makes your web request on your behalf, collects        #
+# the response from the web server, and forwards you the web page data         #
+# so you can see the page in your browser.                                     #
+# https://www.varonis.com/blog/what-is-a-proxy-server/                         #
+# In general, proxying requests involves the proxy server, in this case Nginx, #
+# forwarding requests from clients to a backend server. The directive          #
+# that Nginx uses to define the actual server to proxy to using                #
+# the FastCGI protocol is fastcgi_pass.                                        #
+# https://www.digitalocean.com/community/tutorials/understanding-and-implementi#
+# ng-fastcgi-proxying-in-nginx                                                 #
+# **************************************************************************** #
