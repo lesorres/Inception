@@ -1,6 +1,7 @@
 version: '3'
 services:
   nginx:
+      image: nginx:image
       build:
           context: ./requirements/nginx
       container_name: nginx
@@ -15,6 +16,7 @@ services:
       restart: always
 
   mariadb:
+      image: mariadb:image
       build:
           context: ./requirements/mariadb
       container_name: mariadb
@@ -23,10 +25,11 @@ services:
       volumes:
         - database:/var/lib/mysql
       env_file:
-        - .env 
+        - .env
       restart: always
 
   wordpress:
+      image: wordpress:image
       build:
           context: ./requirements/wordpress
       container_name: wordpress
@@ -59,3 +62,10 @@ volumes:
 networks:
     inception_network:
         driver: bridge
+
+# **************************************************************************** #
+# about latest tag and image: <service>:<tag> necessity:                       #
+# https://vsupalov.com/docker-latest-tag/                                      #
+# https://stackoverflow.com/questions/33816456/how-to-tag-docker-image-with-doc#
+# ker-compose                                                                  #
+# **************************************************************************** #

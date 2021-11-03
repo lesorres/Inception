@@ -31,6 +31,12 @@ server
 # https://serverfault.com/questions/739170/what-does-try-files-do-in-this-nginx#
 # -configuration/739174                                                        #
 # **************************************************************************** #
+# So try_files $uri =404; is one of a number of common tricks to overcome a    #
+# particular script injection exploit by ensuring the the PHP file is a real   #
+# file before sending the URL to the upstream interpreter.                     #
+# https://serverfault.com/questions/739170/what-does-try-files-do-in-this-nginx#
+# -configuration/739174                                                        #
+# **************************************************************************** #
 # When you send a web request, your request goes to the proxy server first.    #
 # The proxy server then makes your web request on your behalf, collects        #
 # the response from the web server, and forwards you the web page data         #

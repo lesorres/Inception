@@ -6,7 +6,7 @@
 #    By: kmeeseek <kmeeseek@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/04 21:07:50 by kmeeseek          #+#    #+#              #
-#    Updated: 2021/10/24 20:38:02 by kmeeseek         ###   ########.fr        #
+#    Updated: 2021/10/31 12:57:54 by kmeeseek         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,6 @@ CMD ["nginx", "-g", "daemon off;"]
 
 # **************************************************************************** #
 # updating packages                                                            #
-#                                                                              #
 # Your copy of Ubuntu has a private copy of the list of packages that are      #
 # in Ubuntus repositories. When you install a package, apt-get reads the list  #
 # and determines the URL of the package to download (which typically contains  #
@@ -43,14 +42,13 @@ CMD ["nginx", "-g", "daemon off;"]
 # on an old version of the list (which listed an older version of the package).#
 # https://askubuntu.com/questions/337198/is-sudo-apt-get-update-mandatory-befor#
 # e-every-package-installation                                                 #
-#                                                                              #
+# **************************************************************************** #
 # apt is for the terminal and gives beautiful output while apt-get             #
 # and apt-cache are for scripts and give stable, parsable output               #
 # https://askubuntu.com/questions/990823/apt-gives-unstable-cli-interface-warni#
 # ng                                                                           #
 # **************************************************************************** #
 # running nginx                                                                #
-#                                                                              #
 # In the Dockerfile, the last line specifies the entry point of the image      #
 # to be the command: nginx -g daemon off;. This entry point ensures            #
 # that NGINX stays in the foreground, so that docker can track the process     #
@@ -59,9 +57,13 @@ CMD ["nginx", "-g", "daemon off;"]
 # When a process runs in the foreground, it occupies your shell, and you can   #
 # interact with it using the input devices.                                    #
 # https://linuxize.com/post/how-to-run-linux-commands-in-background/           #
-#                                                                              #
+# **************************************************************************** #
 # The CMD instruction is only utilized if there is no argument added           #
 # to the run command when starting a container. Therefore, if you add          #
 # an argument to the command, you override the CMD.                            #
 # https://phoenixnap.com/kb/docker-cmd-vs-entrypoint                           #
+# **************************************************************************** #
+# CGI (от англ. Common Gateway Interface — «общий интерфейс шлюза») — стандарт #
+# интерфейса, используемого для связи внешней программы с веб-сервером.        #
+# https://lectureswww.readthedocs.io/5.web.server/cgi.html                     #
 # **************************************************************************** #

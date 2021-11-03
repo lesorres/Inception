@@ -38,6 +38,13 @@ rm_data:
 	mkdir /home/kmeeseek/data/wordpress
 	mkdir /home/kmeeseek/data/database
 
+fclean:
+	docker stop $$(docker ps -qa)
+	docker rm $$(docker ps -qa)
+	docker rmi -f $$(docker images -qa)
+	docker volume rm $$(docker volume ls -q)
+	docker network rm $$(docker network ls -q) 2>/dev/null
+
 nginx:
 
 	docker build ./srcs/requirements/nginx/ --tag nginx
