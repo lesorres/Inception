@@ -31,6 +31,10 @@ mysqld_safe
 # case the user will be prompted for a password.                               #
 # https://mariadb.com/kb/en/mysqladmin/                                        #
 # **************************************************************************** #
+# Use the mysqladmin command-line utility to alter the MySQL password, using   #
+# the following syntax: mysqladmin --user=root password "newpassword"          #
+# http://www.ihp.sinica.edu.tw/dashboard/docs/reset-mysql-password.pdf         #
+# **************************************************************************** #
 # "mysqld" is MySQL server daemon program which runs quietly in background     #
 # on your computer system. Invoking "mysqld" will start the MySQL server       #
 # on your system.                                                              #

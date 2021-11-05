@@ -6,7 +6,7 @@
 #    By: kmeeseek <kmeeseek@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/04 21:07:50 by kmeeseek          #+#    #+#              #
-#    Updated: 2021/10/31 12:57:54 by kmeeseek         ###   ########.fr        #
+#    Updated: 2021/11/05 20:29:43 by kmeeseek         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,4 +66,7 @@ CMD ["nginx", "-g", "daemon off;"]
 # CGI (от англ. Common Gateway Interface — «общий интерфейс шлюза») — стандарт #
 # интерфейса, используемого для связи внешней программы с веб-сервером.        #
 # https://lectureswww.readthedocs.io/5.web.server/cgi.html                     #
+# **************************************************************************** #
+# Проверить TLSv: curl -I -v --tlsv1.3 --tls-max 1.3 https://kmeeseek.42.fr/   #
+# https://www.cyberciti.biz/faq/configure-nginx-to-use-only-tls-1-2-and-1-3/   #
 # **************************************************************************** #
