@@ -7,42 +7,30 @@ all:
 	docker-compose -f $(DCFILE) up -d
 up:
 	docker-compose ./srcs/docker-compose.yaml up -d
+# сначала останавливает все запущенные сервисы, затем удаляет их. также удаляет сеть
 down:
 	docker-compose down
-	# сначала останавливает все запущенные сервисы, затем удаляет их. также удаляет сеть
-clean_all: stop rm_cont rm_network rm_data
-
-stop:
-	docker stop $$(docker ps -aq)
-rm_cont:
-	docker rm $$(docker ps -aq)
-rm_network:
-	docker network rm srcs_inception_network
+# показывает контейнеры тех сервисов, которые прописаны в указаном yaml файле
 ps:
 	docker-compose ./srcs/docker-compose.yaml ps
-	# показывает контейнеры тех сервисов, которые прописаны в указаном yaml файле
 
-fclean: rm_data
+fclean: stop rm_cont rm_volumes rm_network rm_images rm_data
+
+stop:
 	docker stop $$(docker ps -qa)
+rm_cont:
 	docker rm $$(docker ps -qa)
+rm_volumes:
 	docker volume rm $$(docker volume ls -q)
+rm_network:
 	docker network rm $$(docker network ls -q) 2>/dev/null
+rm_images:
 	docker rmi -f $$(docker images -qa)
-
 rm_data:
 	sudo rm -rf /home/kmeeseek/data/wordpress
 	sudo rm -rf /home/kmeeseek/data/database
 	mkdir /home/kmeeseek/data/wordpress
 	mkdir /home/kmeeseek/data/database
-
-# service nginx start
-# service nginx status
-# service nginx stop
-# docker start <container name>
-
-
-# docker network ls
-# docker network inspect
 
 # **************************************************************************** #
 # You can use the -f flag to specify a path to a Compose file                  #
@@ -57,4 +45,12 @@ rm_data:
 # **************************************************************************** #
 # Use the command docker exec -it <container name> /bin/bash to get a bash     #
 # shell in the container.                                                      #
+# **************************************************************************** #
+# usefull commands:                                                            #
+# service nginx start                                                          #
+# service nginx status                                                         #
+# service nginx stop                                                           #
+# docker start <container name>                                                #
+# docker network ls                                                            #
+# docker network inspect                                                       #
 # **************************************************************************** #
