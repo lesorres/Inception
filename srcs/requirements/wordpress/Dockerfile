@@ -6,7 +6,7 @@
 #    By: kmeeseek <kmeeseek@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/13 22:11:50 by kmeeseek          #+#    #+#              #
-#    Updated: 2021/11/01 22:26:59 by kmeeseek         ###   ########.fr        #
+#    Updated: 2021/11/05 17:53:16 by kmeeseek         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ RUN service php7.3-fpm start; service php7.3-fpm stop
 COPY /tools/start_wp.sh /
 
 CMD bash ../../../start_wp.sh
+# CMD bash
 
 # **************************************************************************** #
 # apt is for the terminal and gives beautiful output while apt-get             #
