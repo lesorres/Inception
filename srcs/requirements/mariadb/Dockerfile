@@ -6,7 +6,7 @@
 #    By: kmeeseek <kmeeseek@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/11 23:26:34 by kmeeseek          #+#    #+#              #
-#    Updated: 2021/10/29 22:18:05 by kmeeseek         ###   ########.fr        #
+#    Updated: 2021/11/07 19:05:54 by kmeeseek         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,6 @@ RUN apt-get update
 
 # software installation
 RUN apt-get install -y mariadb-server
-
-# RUN chown mysql:mysql /etc/mysql/mariadb.conf.d/50-server.cnf; \
-# 	chmod 600 /etc/mysql/mariadb.conf.d/50-server.cnf
 
 # copying mysql client commands
 COPY /tools/create_mysql_db.sql /etc/mysql/

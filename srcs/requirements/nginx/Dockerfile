@@ -6,7 +6,7 @@
 #    By: kmeeseek <kmeeseek@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/04 21:07:50 by kmeeseek          #+#    #+#              #
-#    Updated: 2021/11/05 20:29:43 by kmeeseek         ###   ########.fr        #
+#    Updated: 2021/11/07 19:04:59 by kmeeseek         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,6 @@ RUN openssl req -x509 -nodes -days 365 -subj \
 	"/C=RU/ST=Russia/L=Kazan/O=21school/OU=21kazan/CN=kmeeseek" -newkey rsa:2048 \
 	-keyout /etc/ssl/nginx-selfsigned.key -out /etc/ssl/nginx-selfsigned.crt;
 
-# RUN service nginx start; service nginx stop
-# CMD nginx -c /etc/nginx/nginx.conf -g "daemon off;"
 CMD ["nginx", "-g", "daemon off;"]
 
 # **************************************************************************** #
