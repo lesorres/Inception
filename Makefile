@@ -33,10 +33,10 @@ ps:
 # выполняет сборку образов, указанных в параметре build в файле yaml           #
 # docker-compose -f $(DCFILE) up -d:                                           #
 # запускает контейнеры и создает сеть                                          #
-# docker-compose ./srcs/docker-compose.yaml up -d:                             #
+# docker-compose down:                                                         #
 # сначала останавливает все запущенные сервисы, затем удаляет их. также удаляет#
 # сеть                                                                         #
-# docker-compose down                                                          #
+# docker-compose ./srcs/docker-compose.yaml ps                                 #
 # показывает контейнеры тех сервисов, которые прописаны в указаном yaml файле  #
 # **************************************************************************** #
 # You can use the -f flag to specify a path to a Compose file                  #
